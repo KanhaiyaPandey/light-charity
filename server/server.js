@@ -12,7 +12,7 @@ import { StatusCodes } from "http-status-codes";
 import cookieParser from "cookie-parser";
 
  
-// routes
+// routes import
 import authRouter from './routes/authRoutes.js';
 import updateRouter from "./routes/updateRoute.js"
 
@@ -32,15 +32,19 @@ app.use(cookieParser());
 app.use(errorHandler);
 app.use(express.json());
 
+// routes
 
-app.use("/bloodbank", authRouter)
 app.use("/bloodbank/update",authenticateUser, updateRouter)
+app.use("/bloodbank/auth", authRouter)
 
 
+// not found error..
 
+app.use('*', (req, res) => {
+  res.status(404).json({msg: "not found"});
+});
 
-
-
+// unexpected err...
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;

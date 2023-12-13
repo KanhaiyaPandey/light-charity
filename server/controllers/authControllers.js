@@ -5,15 +5,22 @@ import BloodBank from "../models/BloodBank.js";
 import { comparePassword, hashPassword } from "../utils/password.js";
 import { createJWT, verifyJWT } from "../utils/token.js";
 
+
+// register...
+
 export const register = async (req, res) => {
-  
-  
+  const { email } = req.body;
+    const existingBank = await BloodBank.findOne({ email });
+    if (existingBank) {
+        return res.status(400).json({ message: 'Email is already registered' });
+    }
     const hashedPassword = await hashPassword(req.body.password)
     req.body.password = hashedPassword;
     const bank = await BloodBank.create(req.body)
-    res.status(201).json({ message: 'Blood inventory added successfully', bank:bank});
+    res.status(201).json({ message: 'registered successfully'});
     };
 
+    // login...
 
     export const login = async (req, res) =>{
         const user = await BloodBank.findOne({email: req.body.email});  
