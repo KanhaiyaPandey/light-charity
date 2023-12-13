@@ -1,16 +1,19 @@
-import { Email } from "@mui/icons-material";
 import mongoose from "mongoose";
-
 
 const Donor = new mongoose.Schema(
     {
-            email: String,
-            name: String,
-            Add: String,
-            DOB: String,
-            Bg: String,
+            email:{type: String, require: true, unique: true},
+            name: {type: String, require: true},
+            Add: {type: String, require: true},
+            dob: {type: String, require: true},
+            bloodGroup: {
+                type:String,
+                enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
+            },
             donated: Number,
+            donatedAt:[],
     },
+
 
     {timestamps: true},
 )

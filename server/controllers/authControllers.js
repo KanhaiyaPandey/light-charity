@@ -1,6 +1,6 @@
 
 import { StatusCodes } from "http-status-codes";
-import { UnauthenticatedError } from "../errors/customErrors.js";
+import { BadRequestError, UnauthenticatedError } from "../errors/customErrors.js";
 import BloodBank from "../models/BloodBank.js";
 import { comparePassword, hashPassword } from "../utils/password.js";
 import { createJWT, verifyJWT } from "../utils/token.js";
@@ -12,12 +12,12 @@ export const register = async (req, res) => {
   const { email } = req.body;
     const existingBank = await BloodBank.findOne({ email });
     if (existingBank) {
-        return res.status(400).json({ message: 'Email is already registered' });
+       throw new BadRequestError("email already existed")
     }
     const hashedPassword = await hashPassword(req.body.password)
     req.body.password = hashedPassword;
     const bank = await BloodBank.create(req.body)
-    res.status(201).json({ message: 'registered successfully'});
+    res.status(StatusCodes.OK).json({ message: 'registered successfully'});
     };
 
     // login...
