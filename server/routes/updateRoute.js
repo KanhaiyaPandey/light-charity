@@ -1,11 +1,12 @@
 import { Router } from "express";
-import { update } from "../controllers/updateControllers.js";
+import { createDonor, update } from "../controllers/updateControllers.js";
 
 
 
 const router = Router();
 
 router.patch('/inventory',update);
+router.post('/create-donor',createDonor);
 
 
 export default router;

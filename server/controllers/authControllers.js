@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import { BadRequestError, UnauthenticatedError } from "../errors/customErrors.js";
 import BloodBank from "../models/BloodBank.js";
 import { comparePassword, hashPassword } from "../utils/password.js";
-import { createJWT, verifyJWT } from "../utils/token.js";
+import { createJWT } from "../utils/token.js";
 
 
 // register...
@@ -27,7 +27,7 @@ export const register = async (req, res) => {
         const isValidUser = user && (await comparePassword(req.body.password, user.password));
         if(!isValidUser) throw new UnauthenticatedError("invalid credentials");
     
-          const token = createJWT({userId: user._id, inventory: user.inventory});
+          const token = createJWT({userId: user._id, inventory: user.inventory, donors: user.doners});
           const oneDay = 60*60*1000*24;
     
           res.cookie("token", token,{ 

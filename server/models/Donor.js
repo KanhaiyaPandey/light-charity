@@ -2,13 +2,15 @@ import mongoose from "mongoose";
 
 const Donor = new mongoose.Schema(
     {
-            email:{type: String, require: true, unique: true},
-            name: {type: String, require: true},
-            Add: {type: String, require: true},
-            dob: {type: String, require: true},
+            email:{type: String },
+            name: {type: String },
+            password: {type: String},
+            number:{type: String },
+            Add: {type: String  },
+            dob: {type: String  },
             bloodGroup: {
                 type:String,
-                enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
+                enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
             },
             donated: Number,
             donatedAt:[],

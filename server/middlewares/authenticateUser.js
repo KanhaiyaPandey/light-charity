@@ -5,8 +5,8 @@ const authenticateUser = async (req, res, next) =>{
   const {token} = req.cookies;
   if(!token) throw new UnauthenticatedError("you are not authorized for this route");
   try {
-     const {userId, inventory} = verifyJWT(token);
-     req.user = {userId,inventory}
+     const {userId, inventory, donors} = verifyJWT(token);
+     req.user = {userId,inventory, donors}
      next();
   } catch (error) {
     throw new UnauthenticatedError("you are not authorized for this route");

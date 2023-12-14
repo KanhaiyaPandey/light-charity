@@ -7,7 +7,7 @@ const BloodBankSchema = new Schema(
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    doners: [],
+    donors: [],
     inventory: [
       {
         bloodGroup: {
