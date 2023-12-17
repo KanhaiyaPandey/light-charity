@@ -36,4 +36,10 @@ BloodBankSchema.pre("save", function (next) {
   next();
 });
 
+BloodBankSchema.methods.toJSON = function(){
+  let obj = this.toObject();
+  delete obj.password
+  return obj;
+ }
+
 export default mongoose.model("BloodBank", BloodBankSchema);

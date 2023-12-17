@@ -15,6 +15,7 @@ import cookieParser from "cookie-parser";
 // routes import
 import authRouter from './routes/authRoutes.js';
 import updateRouter from "./routes/updateRoute.js"
+import donorAuthRouter from "./routes/donorAuthRoutes.js"
 
 // middlewares
 import errorHandler from "./middlewares/errorHandler.js";
@@ -32,10 +33,14 @@ app.use(cookieParser());
 app.use(errorHandler);
 app.use(express.json());
 
-// routes
+// hospitals - routes
 
 app.use("/bloodbank/update",authenticateUser, updateRouter)
 app.use("/bloodbank/auth", authRouter)
+
+
+// donor - routes
+app.use("/donor/auth", donorAuthRouter)
 
 
 // not found error..

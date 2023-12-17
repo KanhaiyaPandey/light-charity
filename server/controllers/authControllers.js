@@ -17,7 +17,7 @@ export const register = async (req, res) => {
     const hashedPassword = await hashPassword(req.body.password)
     req.body.password = hashedPassword;
     const bank = await BloodBank.create(req.body)
-    res.status(StatusCodes.OK).json({ message: 'registered successfully'});
+    res.status(StatusCodes.OK).json({ message: 'registered successfully', bank});
     };
 
     // login...

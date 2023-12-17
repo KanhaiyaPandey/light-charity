@@ -20,4 +20,10 @@ const Donor = new mongoose.Schema(
     {timestamps: true},
 )
 
+Donor.methods.toJSON = function(){
+    let obj = this.toObject();
+    delete obj.password
+    return obj;
+   }
+
 export default mongoose.model("Donor", Donor);
