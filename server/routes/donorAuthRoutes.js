@@ -1,11 +1,11 @@
 import { Router } from "express";
 
-import { DonorRegister } from "../controllers/donorAuthControllers.js";
+import { DonorLogin, DonorRegister } from "../controllers/donorAuthControllers.js";
 
 const router = Router();
 
 router.post('/register',DonorRegister);
-
+router.post("/login" , DonorLogin);
 
 
 export default router;
