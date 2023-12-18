@@ -17,7 +17,7 @@ export const getDonors = async (req, res) => {
       res.status(200).json({ donors });
     } else {
 
-      res.status(404).json({ error: 'BloodBank not found' });
+      throw new NotFoundError("Blood Bank not found");
     }
   } catch (error) {
 
@@ -31,7 +31,7 @@ export const getDonors = async (req, res) => {
 
 export const update = async (req, res) => {
     const {  quantity , email } = req.body;
-    const existingDonor = await Donor.findOne({ email }).select("-password -donatedAt -createdAt -createdAt");
+    const existingDonor = await Donor.findOne({ email }).select("-password -donatedAt -createdAt -updatedAt -__v");
    
     if(!existingDonor){
       throw new BadRequestError("no donor found");
@@ -51,7 +51,7 @@ export const update = async (req, res) => {
 
       await Donor.findOneAndUpdate(
     { _id: existingDonor._id},
-    { $inc: { 'donated': quantity } }, 
+    { $inc: { 'donated': quantity } },  
     { new: true }
 );
 
