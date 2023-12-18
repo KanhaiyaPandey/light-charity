@@ -5,55 +5,115 @@ import { hashPassword } from "../utils/password.js";
 import { BadRequestError, NotFoundError } from "../errors/customErrors.js";
 
 
+export const getDonors = async (req, res) => {
+  
+  try {
+
+    const bloodBank = await BloodBank.findById(req.user.userId);
+
+    if (bloodBank) {
+      const donors = bloodBank.donors || [];
+
+      res.status(200).json({ donors });
+    } else {
+
+      res.status(404).json({ error: 'BloodBank not found' });
+    }
+  } catch (error) {
+
+    console.error('Error fetching donors:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+
+
+}
+
+
 export const update = async (req, res) => {
-    const { bloodGroup, quantity } = req.body;
-    const toFind = bloodGroup;
-
-    const result = await req.user.inventory.find(blood => blood.bloodGroup === toFind);
-
-    if (!result) {
-        throw new NotFoundError("Blood group not found in inventory");
+    const {  quantity , email } = req.body;
+    const existingDonor = await Donor.findOne({ email }).select("-password -donatedAt -createdAt -createdAt");
+   
+    if(!existingDonor){
+      throw new BadRequestError("no donor found");
     }
+    existingDonor.donated = quantity;
+    await BloodBank.findOneAndUpdate(
+      { _id: req.user.userId }, 
+      { $push: { donors: existingDonor } }, 
+      { new: true }
+    );
 
-    try {
-        const bloodbank = await BloodBank.findOneAndUpdate(
-            { _id: req.user.userId, 'inventory.bloodGroup': toFind },
-            { $inc: { 'inventory.$.quantity': quantity } }, 
-            { new: true }
-        );
-    
-        req.user.inventory = bloodbank.inventory;
-    
-        if (req.user.inventory) {
-            res.status(StatusCodes.OK).json({ msg: `quantity of blood group ${bloodGroup} Updated successfully`, inventory: bloodbank.inventory});
-        } else {
-            throw new NotFoundError("Blood bank not found");
-        }
-    } catch (error) {
-        console.error('Error updating database:', error);
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
-    }
+    const bloodbank = await BloodBank.findOneAndUpdate(
+      { _id: req.user.userId, 'inventory.bloodGroup': existingDonor.bloodGroup },
+      { $inc: { 'inventory.$.quantity': quantity } }, 
+      { new: true }
+  );
+
+      await Donor.findOneAndUpdate(
+    { _id: existingDonor._id},
+    { $inc: { 'donated': quantity } }, 
+    { new: true }
+);
+
+    res.status(StatusCodes.OK).json({ msg: 'Inventory Updated' ,bloodbank})
+
 };
+
+
+
+
+
+
 
 export const createDonor = async (req, res) => {
     try {
-      const { email } = req.body;
+      const { email, bloodGroup, donated, number } = req.body;
       const existingDonor = await Donor.findOne({ email });
       if (existingDonor) {
-        throw new BadRequestError("Email already exists");
-      }
+        const donorToadd = req.body;
 
-      const hashedPassword = await hashPassword(req.body.password);
-      req.body.password = hashedPassword;
-
-      const donor = await Donor.create(req.body);
-      const bloodBank = await BloodBank.findOneAndUpdate(
+        await BloodBank.findOneAndUpdate(
         { _id: req.user.userId }, 
-        { $push: { donors: donor._id } }, 
+        { $push: { donors: donorToadd } }, 
         { new: true }
       );
-  
-      res.status(StatusCodes.OK).json({ msg: 'donor registered successfully and added to donors list'});
+
+      const bloodbank = await BloodBank.findOneAndUpdate(
+        { _id: req.user.userId, 'inventory.bloodGroup': bloodGroup },
+        { $inc: { 'inventory.$.quantity': donated } }, 
+        { new: true }
+    );
+
+    const donor = await Donor.findOneAndUpdate(
+      { _id: existingDonor._id},
+      { $inc: { 'donated': donated } }, 
+      { new: true }
+  );
+
+      res.status(StatusCodes.OK).json({ msg: 'donor added to donors list' ,bloodbank})
+
+      }else{
+      const donorToadd = req.body;
+
+        await BloodBank.findOneAndUpdate(
+        { _id: req.user.userId }, 
+        { $push: { donors: donorToadd } }, 
+        { new: true }
+      );
+
+      req.body.password = number;
+      const hashedPassword = await hashPassword(req.body.password);
+      req.body.password = hashedPassword;
+      const donor = await Donor.create(req.body);
+
+      const bloodbank = await BloodBank.findOneAndUpdate(
+        { _id: req.user.userId, 'inventory.bloodGroup': bloodGroup },
+        { $inc: { 'inventory.$.quantity': donated } }, 
+        { new: true }
+    );
+
+      res.status(StatusCodes.OK).json({ msg: 'donor registered successfully and added to donors list' ,bloodbank});
+    }
     } catch (error) {
       console.error('Error creating donor:', error);
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server Error' });
