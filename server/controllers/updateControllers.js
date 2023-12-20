@@ -7,8 +7,6 @@ import { BadRequestError, NotFoundError } from "../errors/customErrors.js";
 
 export const getDonors = async (req, res) => {
   
-  try {
-
     const bloodBank = await BloodBank.findById(req.user.userId);
 
     if (bloodBank) {
@@ -19,27 +17,28 @@ export const getDonors = async (req, res) => {
 
       throw new NotFoundError("Blood Bank not found");
     }
-  } catch (error) {
 
-    console.error('Error fetching donors:', error);
+
     res.status(500).json({ error: 'Internal server error' });
-  }
-
 
 }
 
 
 export const update = async (req, res) => {
     const {  quantity , email } = req.body;
-    const existingDonor = await Donor.findOne({ email }).select("-password -donatedAt -createdAt -updatedAt -__v");
+    const existingDonor = await Donor.findOne({ email }).select("-_id -password -donatedAt -createdAt -updatedAt -__v");
    
     if(!existingDonor){
       throw new BadRequestError("no donor found");
     }
+
     existingDonor.donated = quantity;
+     const donorToadd = existingDonor;
+     donorToadd.date = new Date();
+     
     await BloodBank.findOneAndUpdate(
       { _id: req.user.userId }, 
-      { $push: { donors: existingDonor } }, 
+      { $push: { donors: donorToadd } }, 
       { new: true }
     );
 
@@ -66,11 +65,12 @@ export const update = async (req, res) => {
 
 
 export const createDonor = async (req, res) => {
-    try {
+    
       const { email, bloodGroup, donated, number } = req.body;
       const existingDonor = await Donor.findOne({ email });
       if (existingDonor) {
         const donorToadd = req.body;
+        donorToadd.date = new Date();
 
         await BloodBank.findOneAndUpdate(
         { _id: req.user.userId }, 
@@ -94,7 +94,7 @@ export const createDonor = async (req, res) => {
 
       }else{
       const donorToadd = req.body;
-
+      donorToadd.date = new Date();
         await BloodBank.findOneAndUpdate(
         { _id: req.user.userId }, 
         { $push: { donors: donorToadd } }, 
@@ -114,8 +114,5 @@ export const createDonor = async (req, res) => {
 
       res.status(StatusCodes.OK).json({ msg: 'donor registered successfully and added to donors list' ,bloodbank});
     }
-    } catch (error) {
-      console.error('Error creating donor:', error);
-      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server Error' });
-    }
+      
   };

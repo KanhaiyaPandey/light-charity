@@ -14,6 +14,7 @@ const Donor = new mongoose.Schema(
             },
             donated: Number,
             donatedAt:[],
+            date: Date,
     },
 
 
