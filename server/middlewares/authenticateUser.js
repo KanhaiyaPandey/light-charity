@@ -1,7 +1,7 @@
 import { UnauthenticatedError } from "../errors/customErrors.js";
 import { verifyJWT } from "../utils/token.js";
 
-const authenticateUser = async (req, res, next) =>{
+export const authenticateBloodbank = async (req, res, next) =>{
   const {token} = req.cookies;
   if(!token) throw new UnauthenticatedError("you are not authorized for this route");
   try {
@@ -13,4 +13,19 @@ const authenticateUser = async (req, res, next) =>{
   }
 }
 
-export default authenticateUser;
+
+
+export const authenticateDonor = async (req, res, next) =>{
+  const {token} = req.cookies;
+  if(!token) throw new UnauthenticatedError("you are not authorized for this route");
+  try {
+     const {userId, inventory, donors} = verifyJWT(token);
+     req.user = {userId,inventory, donors}
+     next();
+  } catch (error) {
+    throw new UnauthenticatedError("you are not authorized for this route");
+  }
+}
+
+
+

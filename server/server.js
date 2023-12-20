@@ -13,13 +13,13 @@ import cookieParser from "cookie-parser";
 
  
 // routes import
-import authRouter from './routes/authRoutes.js';
-import updateRouter from "./routes/updateRoute.js"
+import bloodbankAuthRouter from './routes/authRoutes.js';
+import BloodbankUpdateRouter from "./routes/updateRoute.js"
 import donorAuthRouter from "./routes/donorAuthRoutes.js"
 
 // middlewares
 import errorHandler from "./middlewares/errorHandler.js";
-import authenticateUser from "./middlewares/authenticateUser.js";
+import{ authenticateBloodbank, authenticateDonor} from "./middlewares/authenticateUser.js";
 
 
 
@@ -33,14 +33,27 @@ app.use(cookieParser());
 app.use(errorHandler);
 app.use(express.json());
 
-// hospitals - routes
+// test rout
 
-app.use("/bloodbank/update",authenticateUser, updateRouter)
-app.use("/bloodbank/auth", authRouter)
+app.get('/api/v1/test', (req, res) => {
+  res.json({ msg: 'test route' });
+});
+
+// Bloodbank's - routes
+
+app.use("/api/v1/light/bloodbank/update",authenticateBloodbank, BloodbankUpdateRouter)
+app.use("/api/v1/light/bloodbank/auth",bloodbankAuthRouter)
 
 
-// donor - routes
-app.use("/donor/auth", donorAuthRouter)
+// donor's - routes
+
+app.use("/api/v1/light/donor/auth", donorAuthRouter)
+
+
+// Hospital's routes
+
+
+
 
 
 // not found error..
