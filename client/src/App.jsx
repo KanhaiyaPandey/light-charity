@@ -2,23 +2,32 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Register from "./pages/Register"
 import Login from './pages/Login'
 import { RegisterAction } from './utils/actions'
+import Landing from './pages/Landing'
+import DonorDashbord from './pages/DonorsPages/DonorDashbord'
 
 
 const router = createBrowserRouter([
   
+  {
+         path: "/",
+         element: <Landing/>
+  },
 
   {
-    path: "/register",
+     path: "donor/dashboard",
+     element: <DonorDashbord/>,
+     children: [],
+  },
+  {
+    path: "/donor/register",
     element: <Register/>,
     action: RegisterAction,
-
   },
-
   {
-    path: "/login",
-    element: <Login/>,
+    path: "/donor/login",
+    element: <Login/>
+  }
 
-  },
 
 ])
 

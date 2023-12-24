@@ -47,7 +47,8 @@ app.use("/api/v1/light/bloodbank/auth",bloodbankAuthRouter)
 
 // donor's - routes
 
-app.use("/api/v1/light/donor/auth", donorAuthRouter)
+app.use("/api/v1/light/donor/auth", donorAuthRouter);
+
 
 
 // Hospital's routes

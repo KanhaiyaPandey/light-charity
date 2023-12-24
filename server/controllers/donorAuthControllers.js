@@ -19,11 +19,11 @@ export const DonorRegister = async (req, res) => {
 
       export const DonorLogin = async(req, res) => {
 
-         const user = await Donor.findOne({email: req.body.email});  
-         const isValidUser = user && (await comparePassword(req.body.password, user.password));
+         const donor = await Donor.findOne({email: req.body.email});  
+         const isValidUser = donor && (await comparePassword(req.body.password, donor.password));
          if(!isValidUser) throw new UnauthenticatedError("invalid credentials");
      
-           const token = createJWT({userId: user._id, donatedAt : user.donatedAt});
+           const token = createJWT({donorId: donor._id, donatedAt : donor.donatedAt});
            const oneDay = 60*60*1000*24;
      
            res.cookie("token", token,{ 

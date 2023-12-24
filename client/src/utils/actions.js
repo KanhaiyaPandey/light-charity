@@ -7,9 +7,9 @@ export const RegisterAction = async ({ request }) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
     try {
-      const response = await customFetch.post('/auth/register', data);
+      const response = await customFetch.post('/donor/auth/register', data);
       toast.success('account created successfully');
-      return redirect('/login');
+      return redirect('/donor/login');
     } catch (error) {
       const errorMessage =
         error?.response?.data?.error?.message ||
@@ -25,7 +25,7 @@ export const RegisterAction = async ({ request }) => {
     const data = Object.fromEntries(formData);
     
     try {
-        await customFetch.post('/auth/login', data);
+        await customFetch.post('/donor/auth/login', data);
         toast.success('Logged in successful');
         return redirect('/dashboard');
       } catch (error) {
