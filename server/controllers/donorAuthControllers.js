@@ -23,10 +23,10 @@ export const DonorRegister = async (req, res) => {
          const isValidUser = donor && (await comparePassword(req.body.password, donor.password));
          if(!isValidUser) throw new UnauthenticatedError("invalid credentials");
      
-           const token = createJWT({donorId: donor._id, donatedAt : donor.donatedAt});
+           const Bloodbanktoken = createJWT({donorId: donor._id, donatedAt : donor.donatedAt});
            const oneDay = 60*60*1000*24;
      
-           res.cookie("token", token,{ 
+           res.cookie("token", Bloodbanktoken,{ 
            httpOnly: true,
            expires: new Date(Date.now() + oneDay),
            secure: process.env.NODE_ENV === "production"

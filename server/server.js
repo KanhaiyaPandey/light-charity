@@ -16,6 +16,7 @@ import cookieParser from "cookie-parser";
 import bloodbankAuthRouter from './routes/authRoutes.js';
 import BloodbankUpdateRouter from "./routes/updateRoute.js"
 import donorAuthRouter from "./routes/donorAuthRoutes.js"
+import donorRouter from "./routes/donorRoutes.js"
 
 // middlewares
 import errorHandler from "./middlewares/errorHandler.js";
@@ -47,7 +48,9 @@ app.use("/api/v1/light/bloodbank/auth",bloodbankAuthRouter)
 
 // donor's - routes
 
-app.use("/api/v1/light/donor/auth", donorAuthRouter);
+app.use("/api/v1/light/donors/donor", authenticateDonor, donorRouter);
+app.use("/api/v1/light/donors/auth", donorAuthRouter);
+
 
 
 

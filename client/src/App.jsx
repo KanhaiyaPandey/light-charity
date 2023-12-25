@@ -1,33 +1,49 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Register from "./pages/Register"
 import Login from './pages/Login'
-import { RegisterAction } from './utils/actions'
+import { DonorLoginAction, DonorRegisterAction } from './utils/actions'
 import Landing from './pages/Landing'
 import DonorDashbord from './pages/DonorsPages/DonorDashbord'
+import { DonordashboardLoader } from './utils/loaders'
+import Error from "./pages/Error"
+import { HomeLayout } from './pages/HomeLayout'
 
 
 const router = createBrowserRouter([
   
   {
          path: "/",
-         element: <Landing/>
+         element: <HomeLayout/>,
+         errorElement: <Error/>,
+         children: [
+
+          {
+            index: true,
+            element: <Landing/>
+          },
+
+          {
+            path: "donor/register",
+            element: <Register/>,
+            action:DonorRegisterAction,
+          },
+
+          {
+            path: "donor/login",
+            element: <Login/>,
+            action: DonorLoginAction,
+          },
+
+          {
+              path: "donor/dashboard",
+              element: <DonorDashbord/>,
+              loader: DonordashboardLoader,
+          }
+
+         ]
   },
 
-  {
-     path: "donor/dashboard",
-     element: <DonorDashbord/>,
-     children: [],
-  },
-  {
-    path: "/donor/register",
-    element: <Register/>,
-    action: RegisterAction,
-  },
-  {
-    path: "/donor/login",
-    element: <Login/>
-  }
-
+ 
 
 ])
 

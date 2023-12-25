@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { redirect } from "react-router-dom";
-import { customFetch } from "./helper";
+import { customFetchDonor } from "./helper";
 import { toast } from 'react-toastify';
 
-export const RegisterAction = async ({ request }) => {
+export const DonorRegisterAction = async ({ request }) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
     try {
-      const response = await customFetch.post('/donor/auth/register', data);
+      const response = await customFetchDonor.post('/auth/register', data);
       toast.success('account created successfully');
       return redirect('/donor/login');
     } catch (error) {
@@ -20,14 +20,14 @@ export const RegisterAction = async ({ request }) => {
     }
   };
 
-  export const loginAction = async ({request}) =>{
+  export const DonorLoginAction = async ({request}) =>{
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
     
     try {
-        await customFetch.post('/donor/auth/login', data);
+        await customFetchDonor.post('/auth/login', data);
         toast.success('Logged in successful');
-        return redirect('/dashboard');
+        return redirect('/donor/dashboard');
       } catch (error) {
         console.log(error);
         toast.error(error?.response?.data?.msg);
