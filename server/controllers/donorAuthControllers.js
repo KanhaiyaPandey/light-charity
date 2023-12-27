@@ -20,12 +20,12 @@ export const DonorRegister = async (req, res) => {
         
 
       const transporter = nodemailer.createTransport({
-        host: "smtp.forwardemail.net",
-        port: 465,
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT,
         secure: true,
         auth: {
-          user: "REPLACE-WITH-YOUR-ALIAS@YOURDOMAIN.COM",
-          pass: "REPLACE-WITH-YOUR-GENERATED-PASSWORD",
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASSWORD,
         },
       })
 
