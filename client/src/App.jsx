@@ -1,12 +1,13 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Register from "./pages/Register"
 import Login from './pages/Login'
-import { DonorLoginAction, DonorRegisterAction } from './utils/actions'
+import { DonorLoginAction, DonorRegisterAction, DonorRegisterVerificationAction } from './utils/actions'
 import Landing from './pages/Landing'
 import DonorDashbord from './pages/DonorsPages/DonorDashbord'
 import { DonordashboardLoader } from './utils/loaders'
 import Error from "./pages/Error"
 import { HomeLayout } from './pages/HomeLayout'
+import RegisterVerify from './pages/RegisterVerify'
 
 
 const router = createBrowserRouter([
@@ -32,6 +33,12 @@ const router = createBrowserRouter([
             path: "donor/login",
             element: <Login/>,
             action: DonorLoginAction,
+          },
+
+          {
+            path:"donor/register/verification",
+            element:<RegisterVerify/>,
+            action: DonorRegisterVerificationAction,
           },
 
           {

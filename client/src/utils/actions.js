@@ -8,17 +8,37 @@ export const DonorRegisterAction = async ({ request }) => {
     const data = Object.fromEntries(formData);
     try {
       const response = await customFetchDonor.post('/auth/register', data);
-      toast.success('account created successfully');
-      return redirect('/donor/login');
+      toast.success("A verification code has been sended to your email");
+      return redirect('/donor/register/verification');
     } catch (error) {
       const errorMessage =
-        error?.response?.data?.error?.message ||
-        'please double check your credentials';
-  
+      error?.response?.data?.error?.message ||
+     'email already existed';
       toast.error(errorMessage);
       return null;
     }
   };
+
+
+
+  export const DonorRegisterVerificationAction = async ({ request }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    try {
+      const response = await customFetchDonor.post('/auth/register/verify', data);
+      toast.success("Registerd Successfully");
+      return redirect('/donor/dashboard');
+    } catch (error) {
+      const errorMessage =
+      error?.response?.data?.error?.message ||
+     'Something went wrong';
+      toast.error(errorMessage);
+      return null;
+    }
+  };
+
+
+
 
   export const DonorLoginAction = async ({request}) =>{
     const formData = await request.formData();
