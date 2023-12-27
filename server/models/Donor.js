@@ -13,7 +13,12 @@ const Donor = new mongoose.Schema(
                 enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
             },
             donated: Number,
-            donatedAt:[],
+            donatedAt:[
+                {
+                    name: {type: String, require: true},
+                    bags:{type: Number, default: 0},
+                }
+            ],
             date: Date,
     },
 

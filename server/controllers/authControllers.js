@@ -27,10 +27,10 @@ export const register = async (req, res) => {
         const isValidUser = user && (await comparePassword(req.body.password, user.password));
         if(!isValidUser) throw new UnauthenticatedError("invalid credentials");
     
-          const token = createJWT({userId: user._id, inventory: user.inventory, donors: user.donors});
+          const bloobankToken = createJWT({userId: user._id, inventory: user.inventory, donors: user.donors});
           const oneDay = 60*60*1000*24;
     
-          res.cookie("token", token,{ 
+          res.cookie("bloobankToken", bloobankToken,{ 
           httpOnly: true,
           expires: new Date(Date.now() + oneDay),
           secure: process.env.NODE_ENV === "production"

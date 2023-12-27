@@ -52,6 +52,14 @@ export const update = async (req, res) => {
     { _id: existingDonor._id},
     { $inc: { 'donated': quantity } },  
     { new: true }
+ 
+);
+
+await Donor.findOneAndUpdate(
+  { _id: existingDonor._id, 'donatedAt.name': bloodbank.name},
+  { $inc: { 'donatedAt.$.bags': quantity } },  
+  { new: true }
+  
 );
 
     res.status(StatusCodes.OK).json({ msg: 'Inventory Updated' ,bloodbank})
@@ -101,16 +109,20 @@ export const createDonor = async (req, res) => {
         { new: true }
       );
 
+      
+
       req.body.password = number;
       const hashedPassword = await hashPassword(req.body.password);
       req.body.password = hashedPassword;
       const donor = await Donor.create(req.body);
+
 
       const bloodbank = await BloodBank.findOneAndUpdate(
         { _id: req.user.userId, 'inventory.bloodGroup': bloodGroup },
         { $inc: { 'inventory.$.quantity': donated } }, 
         { new: true }
     );
+
 
       res.status(StatusCodes.OK).json({ msg: 'donor registered successfully and added to donors list' ,bloodbank});
     }
