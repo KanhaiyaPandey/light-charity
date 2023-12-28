@@ -1,8 +1,11 @@
+import Navbar from "./Navbar"
 
 
 const DonorDashbord = () => {
   return (
-    <div className='text-3xl'>DonorDashbord</div>
+   <>
+   <Navbar/>
+   </>
   )
 }
 

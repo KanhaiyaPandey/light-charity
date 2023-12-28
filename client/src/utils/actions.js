@@ -13,7 +13,7 @@ export const DonorRegisterAction = async ({ request }) => {
     } catch (error) {
       const errorMessage =
       error?.response?.data?.error?.message ||
-     'email already existed';
+     'an account is already existed by this email';
       toast.error(errorMessage);
       return null;
     }
