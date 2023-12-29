@@ -1,39 +1,38 @@
 
-import hospital from "../assets/hospital.svg"
-import bloodbank from "../assets/bloodbank.svg"
-import user from "../assets/user.svg"
+// import hospital from "../assets/hospital.svg"
+// import bloodbank from "../assets/bloodbank.svg"
+// import user from "../assets/user.svg"
+
 import { Link } from "react-router-dom"
 
 
 const Landing = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-    <h1 className="text-4xl font-bold mb-[6rem]">You are ?</h1>
-  
-    <div className="flex flex-wrap justify-around max-w-4xl">
-      <div className="relative group w-full sm:w-1/4 md:w-1/3 lg:w-1/4 xl:w-1/4 p-6 rounded-lg cursor-pointer  mb-6 overflow-hidden transition-transform ease-out transform hover:scale-105">
-        <img src={hospital} alt="Card 1" className="w-full h-auto mb-4 rounded-md" />
-        <p className="text-center text-3xl font-bold relative z-10">Hospital</p>
-      </div>
-
-     
-      <div className="relative group w-full sm:w-1/4 md:w-1/3 lg:w-1/4 xl:w-1/4  p-6 rounded-lg cursor-pointer mb-6 overflow-hidden transition-transform ease-out transform hover:scale-105">
-        <Link to = "/donor/register">
-        <img src={user} alt="Card 2" className="w-full h-auto mb-4 rounded-md" />
-        <p className="text-3xl text-center font-bold relative z-10">Donor</p>
-        </Link>
-      
-      </div>
- 
-  
-    
-  
-      <div className="relative group w-full sm:w-1/4 md:w-1/3 lg:w-1/4 xl:w-1/4  p-6 rounded-lg cursor-pointer mb-6 overflow-hidden transition-transform ease-out transform hover:scale-105">
-        <img src={bloodbank} alt="Card 3" className="w-full h-auto mb-4 rounded-md" />
-        <p className="text-3xl  text-center font-bold relative z-10">Bloodbank</p>
+<div className="hero min-h-screen" style={{backgroundImage: 'url(https://img.freepik.com/free-vector/global-volunteer-solidarity-hands-up-banner-with-earth-map-vector_1017-48268.jpg?w=1380&t=st=1703825061~exp=1703825661~hmac=5cadf3587d2a167eb26300cf98afdff9cac86d79a8d3704076c27346bea6ec4a)'}}>
+  <div className="hero-overlay bg-opacity-80"></div>
+  <div className="hero-content text-center text-gray-100">
+    <div className="max-w-md">
+      <h1 className="mb-[5rem] text-6xl font-bold">You Are ?</h1>
+      <div className="flex justify-center space-x-4">
+        {/* Option 1 */}
+        <Link to="donor/login" className="flex flex-col m-4 items-center group">
+    <i className="fa-solid fa-heart text-3xl transition-transform transform group-hover:scale-110"></i>
+    <span className="ml-2">Donor</span>
+  </Link>
+  {/* Option 2 */}
+  <Link className="flex flex-col m-4 items-center group">
+    <i className="fa-solid fa-stethoscope text-3xl transition-transform transform group-hover:scale-110"></i>
+    <span className="ml-2">Hospital</span>
+  </Link>
+  {/* Option 3 */}
+  <Link className="flex flex-col m-4 items-center group">
+    <i className="fa-solid fa-droplet text-3xl transition-transform transform group-hover:scale-110"></i>
+    <span className="ml-2">Bloodbank</span>
+  </Link>
       </div>
     </div>
   </div>
+</div>
   )
 }
 

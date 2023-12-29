@@ -3,7 +3,7 @@ import Register from "./pages/Register"
 import Login from './pages/Login'
 import { DonorLoginAction, DonorRegisterAction, DonorRegisterVerificationAction } from './utils/actions'
 import Landing from './pages/Landing'
-import DonorDashbord from './pages/DonorsPages/DonorDashbord'
+import DonorDashbord from './pages/DonorDashbord'
 import { DonordashboardLoader } from './utils/loaders'
 import Error from "./pages/Error"
 import { HomeLayout } from './pages/HomeLayout'
