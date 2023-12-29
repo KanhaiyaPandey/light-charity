@@ -31,7 +31,7 @@ export const DonorRegisterAction = async ({ request }) => {
     } catch (error) {
       const errorMessage =
       error?.response?.data?.error?.message ||
-     'Something went wrong';
+     'Otp is incorrect';
       toast.error(errorMessage);
       return null;
     }

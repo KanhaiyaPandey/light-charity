@@ -19,7 +19,7 @@ const Register = () => {
         <div className=" sm:grid-cols-2 grid gap-4">
           {/* Username Input */}
           <FormInput
-        type='name'
+        type='text'
         label='name'
         name='name'
       />
@@ -37,8 +37,34 @@ const Register = () => {
         name='password'
       />
 
+<div className="form-control">
+    <label htmlFor='bloodGroup' className="label text-white">
+      Blood Group
+    </label>
+    <select
+      id='bloodGroup'
+      name='bloodGroup'
+      className= {`input input-bordered `}
+    >
+      <option value='A+'>A+</option>
+      <option value='A-'>A-</option>
+      <option value='B+'>B+</option>
+      <option value='B-'>B-</option>
+      <option value='AB+'>AB+</option>
+      <option value='AB-'>AB-</option>
+      <option value='O+'>O+</option>
+      <option value='O-'>O-</option>
+    </select>
+      </div>
+
 
         </div>
+        <FormInput
+        type='text'
+        label='address'
+        name='address'
+        size = "w-full"
+       />
         <div className='mt-6'>
         <SubmitBtn text='Register' />
       </div>
