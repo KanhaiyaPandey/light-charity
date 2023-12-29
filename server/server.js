@@ -18,18 +18,24 @@ import BloodbankUpdateRouter from "./routes/updateRoute.js"
 import donorAuthRouter from "./routes/donorAuthRoutes.js"
 import donorRouter from "./routes/donorRoutes.js"
 
+// public 
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
 // middlewares
 import errorHandler from "./middlewares/errorHandler.js";
 import{ authenticateBloodbank, authenticateDonor} from "./middlewares/authenticateUser.js";
 
 
 
-
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+app.use(express.static(path.resolve(__dirname,"../client/dist")))
 app.use(cookieParser());
 app.use(errorHandler);
 app.use(express.json());
@@ -56,6 +62,10 @@ app.use("/api/v1/light/donors/auth", donorAuthRouter);
 
 // Hospital's routes
 
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
+});
 
 
 
