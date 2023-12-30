@@ -43,7 +43,7 @@ const Navbar = () => {
              strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
           </div>
           <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-            <li><Link className=' hover:text-xl'>Home</Link></li>
+            <li><Link className='hover:text-xl'>Home</Link></li>
             <li><Link className='hover:text-xl'>Hospitals</Link></li>
             <li><Link className='hover:text-xl'>Bloodbanks</Link></li>
             <li><Link className='hover:text-xl'>Peoples</Link></li>
