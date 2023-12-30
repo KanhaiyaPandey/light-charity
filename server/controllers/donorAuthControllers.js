@@ -59,9 +59,6 @@ export const DonorRegister = async (req, res) => {
 
       };
 
-
-
-
       // <<<<<<<<<<<<<<<<< OTP verification >>>>>>>>>>>>>>>>>...
 
 
