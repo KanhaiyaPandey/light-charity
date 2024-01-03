@@ -1,5 +1,6 @@
-import DonorHeroSection from "../components/DonorHeroSection"
+import { Outlet } from "react-router-dom"
 import Navbar from "./Navbar"
+
 
 
 
@@ -8,7 +9,7 @@ const DonorDashbord = () => {
    <>
    <Navbar/>
   <section className="align-element py-20">
-    <DonorHeroSection/>
+    <Outlet/>
   </section>
    
    </>

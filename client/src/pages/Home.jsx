@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import hero from "../assets/HeroImg.svg"
 
-const DonorHeroSection = () => {
+const Home = () => {
   return (
     <>
 <div className=' grid grid-cols-1 lg:grid-cols-2 gap-24 items-center'>
@@ -40,4 +40,4 @@ const DonorHeroSection = () => {
   );
 };
 
-export default DonorHeroSection;
+export default Home;

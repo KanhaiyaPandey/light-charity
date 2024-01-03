@@ -16,7 +16,8 @@ const Register = () => {
       <h2 className="text-3xl text-center text-white font-bold mb-6">Register</h2>
       <Form
        method='post'>
-      
+       
+         
         <div className=" sm:grid-cols-2 grid gap-4">
 
           {/* Username Input */}

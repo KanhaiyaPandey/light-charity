@@ -43,11 +43,11 @@ const Navbar = () => {
              strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
           </div>
           <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-            <li><Link className='nav-link hover:text-secondary'>Home</Link></li>
+            <li><Link to="/donor/dashboard" className='nav-link hover:text-secondary'>Home</Link></li>
             <li><Link className='nav-link hover:text-secondary'>Hospitals</Link></li>
             <li><Link className='nav-link hover:text-secondary'>Bloodbanks</Link></li>
             <li><Link className='nav-link hover:text-secondary'>Peoples</Link></li>
-            <li><Link className='nav-link hover:text-secondary'>Profile</Link></li>
+            <li><Link to= "/donor/dashboard/profile" className='nav-link hover:text-secondary'>Profile</Link></li>
             <li><Link className='nav-link hover:text-secondary'>About</Link></li>
           </ul>
         </div>

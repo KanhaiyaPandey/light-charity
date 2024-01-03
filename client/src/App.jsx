@@ -8,6 +8,8 @@ import { DonordashboardLoader } from './utils/loaders'
 import Error from "./pages/Error"
 import { HomeLayout } from './pages/HomeLayout'
 import RegisterVerify from './pages/RegisterVerify'
+import Home from './pages/Home'
+import Profile from './pages/Profile'
 
 
 const router = createBrowserRouter([
@@ -42,9 +44,20 @@ const router = createBrowserRouter([
           },
 
           {
-              path: "donor/home",
+              path: "donor/dashboard",
               element: <DonorDashbord/>,
               loader: DonordashboardLoader,
+              children: [
+                {
+                  index: true,
+                  element: <Home/>
+                },
+
+                {
+                  path: "profile",
+                  element: <Profile/>
+                }
+              ]
           }
 
          ]
