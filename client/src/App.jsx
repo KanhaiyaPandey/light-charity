@@ -42,7 +42,7 @@ const router = createBrowserRouter([
           },
 
           {
-              path: "donor/dashboard",
+              path: "donor/home",
               element: <DonorDashbord/>,
               loader: DonordashboardLoader,
           }

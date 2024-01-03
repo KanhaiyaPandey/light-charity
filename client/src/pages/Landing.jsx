@@ -1,7 +1,4 @@
 
-// import hospital from "../assets/hospital.svg"
-// import bloodbank from "../assets/bloodbank.svg"
-// import user from "../assets/user.svg"
 
 import { Link } from "react-router-dom"
 
@@ -17,17 +14,17 @@ const Landing = () => {
         {/* Option 1 */}
         <Link to="donor/login" className="flex flex-col m-4 items-center group">
     <i className="fa-solid fa-heart text-3xl transition-transform transform group-hover:scale-110"></i>
-    <span className="ml-2">Donor</span>
+    <span className="transition-transform transform group-hover:scale-110">Donor</span>
   </Link>
   {/* Option 2 */}
   <Link className="flex flex-col m-4 items-center group">
-    <i className="fa-solid fa-stethoscope text-3xl transition-transform transform group-hover:scale-110"></i>
-    <span className="ml-2">Hospital</span>
+    <i className="fa-solid fa-hospital text-3xl transition-transform transform group-hover:scale-110"></i>
+    <span className="transition-transform transform group-hover:scale-110">Hospital</span>
   </Link>
   {/* Option 3 */}
   <Link className="flex flex-col m-4 items-center group">
     <i className="fa-solid fa-droplet text-3xl transition-transform transform group-hover:scale-110"></i>
-    <span className="ml-2">Bloodbank</span>
+    <span className="ml-2 transition-transform transform group-hover:scale-110">Bloodbank</span>
   </Link>
       </div>
     </div>
