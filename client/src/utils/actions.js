@@ -27,7 +27,7 @@ export const DonorRegisterAction = async ({ request }) => {
     try {
       const response = await customFetchDonor.post('/auth/register/verify', data);
       toast.success("Registerd Successfully");
-      return redirect('/donor/home');
+      return redirect('/donor/dashboard');
     } catch (error) {
       const errorMessage =
       error?.response?.data?.error?.message ||
@@ -47,7 +47,7 @@ export const DonorRegisterAction = async ({ request }) => {
     try {
         await customFetchDonor.post('/auth/login', data);
         toast.success('Logged in successful');
-        return redirect('/donor/home');
+        return redirect('/donor/dashboard');
       } catch (error) {
         console.log(error);
         toast.error(error?.response?.data?.msg);

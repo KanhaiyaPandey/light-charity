@@ -49,6 +49,7 @@ const Navbar = () => {
             <li><Link className='nav-link hover:text-secondary'>Peoples</Link></li>
             <li><Link to= "/donor/dashboard/profile" className='nav-link hover:text-secondary'>Profile</Link></li>
             <li><Link className='nav-link hover:text-secondary'>About</Link></li>
+            <li><Link className='nav-link hover:text-secondary'>Logout</Link></li>
           </ul>
         </div>
       </div>

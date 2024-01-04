@@ -26,7 +26,7 @@ export const getDonors = async (req, res) => {
 
 export const update = async (req, res) => {
     const {  quantity , email } = req.body;
-    const existingDonor = await Donor.findOne({ email }).select("-_id -password -donatedAt -createdAt -updatedAt -__v");
+    const existingDonor = await Donor.findOne({ email }).select(" -password -donatedAt -createdAt -updatedAt -__v");
    
     if(!existingDonor){
       throw new BadRequestError("no donor found");
@@ -48,21 +48,14 @@ export const update = async (req, res) => {
       { new: true }
   );
 
-      await Donor.findOneAndUpdate(
+     await Donor.findOneAndUpdate(
     { _id: existingDonor._id},
     { $inc: { 'donated': quantity } },  
     { new: true }
  
 );
 
-await Donor.findOneAndUpdate(
-  { _id: existingDonor._id, 'donatedAt.name': bloodbank.name},
-  { $inc: { 'donatedAt.$.bags': quantity } },  
-  { new: true }
-  
-);
-
-    res.status(StatusCodes.OK).json({ msg: 'Inventory Updated' ,bloodbank})
+    res.status(StatusCodes.OK).json({ msg: 'Inventory Updated' ,bloodbank })
 
 };
 
